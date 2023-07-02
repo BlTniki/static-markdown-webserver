@@ -1,4 +1,6 @@
-import markdown
+from external.markdown_extensions.markdown_mark.markdown_mark import MarkdownMark
+
+from markdown import Markdown
 
 def get_markdown_page(ABSPATH: str):
     with open(ABSPATH, "r", encoding="UTF") as f:
@@ -8,8 +10,11 @@ def get_markdown_page(ABSPATH: str):
 
 def render_page(ABSPATH: str):
     # get markdown file and render it
-    md = get_markdown_page(ABSPATH)
-    return markdown.markdown(md, extensions=['fenced_code', 'tables', 'nl2br', 'markdown_katex'])
+    md_str = get_markdown_page(ABSPATH)
+
+    md = Markdown(extensions=['fenced_code', 'tables', 'nl2br', 'markdown_katex', MarkdownMark()])
+
+    return md.convert(md_str)
 
 
 if __name__ == "__main__":
