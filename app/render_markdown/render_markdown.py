@@ -1,4 +1,5 @@
 from external.markdown_extensions.markdown_mark.markdown_mark import MarkdownMark
+from external.markdown_extensions.markdown_strikethrough.markdown_strikethrough import MarkdownStrikethrough
 
 from markdown import Markdown
 
@@ -12,7 +13,9 @@ def render_page(ABSPATH: str):
     # get markdown file and render it
     md_str = get_markdown_page(ABSPATH)
 
-    md = Markdown(extensions=['fenced_code', 'tables', 'nl2br', 'markdown_katex', MarkdownMark()])
+    md = Markdown(extensions=[
+        'fenced_code', 'tables', 'nl2br', 'markdown_katex', MarkdownMark(), MarkdownStrikethrough()
+    ])
 
     return md.convert(md_str)
 
