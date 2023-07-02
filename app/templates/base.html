@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-16" name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+        <style>
+            body {
+                font-family: "Lato", sans-serif;
+                display: flex;
+            }
+
+            .jstree, .jstree-anchor {
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+
+            .sidenav {
+                top: 0;
+                left: 0;
+                background-color: #111;
+                transition: 0.5s;
+                padding-top: 10px;
+                padding-right: 10px;
+                color: #818181;
+            }
+
+            .s-active {
+                display: inline-block;
+            }
+
+            .s-inactive {
+                display: none;
+            }
+
+            .sidenav a {
+                /* padding: 8px 8px 8px 32px; */
+                text-decoration: none;
+                font-size: 25px;
+                color: #818181;
+                display: block;
+                transition: 0.3s;
+            }
+
+
+            #main {
+                transition: margin-left .5s;
+                padding: 16px;
+            }
+
+            @media screen and (max-height: 450px) {
+                .sidenav {padding-top: 15px;}
+                .sidenav a {font-size: 18px;}
+            }
+            .jstree-icon, .jstree-ocl {
+                display: none !important;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div id="mySidenav" class="sidenav s-active">
+            {% if vault_tree %}
+            <div id="tree"></div>
+            {% endif %}
+        </div>
+
+
+        <div id="main">
+            <span style="font-size:30px;cursor:pointer" onclick="toggleNav()">&#9776;</span>
+            {% if content %}
+            {{ content | safe }}
+            {% else %}
+            <h1>Error. No content is provided :(</h1>
+            {% endif %}
+
+        </div>
+        <script>
+            {% if vault_tree %}
+            $(function () {
+                $('#tree').jstree({
+                    'core': {
+                    'data': {{ vault_tree | safe }}
+                    },
+                    'plugins': ['state', 'types'],
+                    'types': {
+                    'default': {
+                        'icon': false
+                    }
+                    }
+                });
+                $('#tree').on('click.jstree', '.jstree-anchor', function (e) {
+                    var node = $(e.target).closest('.jstree-node');
+                    $('#tree').jstree('toggle_node', node);
+                });
+                $('#tree').on("activate_node.jstree", function (e, data) {
+                    var href = data.node.a_attr.href;
+                    if (href) {
+                    window.location.href = href;
+                    }
+                });
+            });
+            {% endif %}
+
+            function toggleNav() {
+                sidebar = document.getElementById("mySidenav");
+                if (sidebar.classList.contains("s-active")) {
+                    sidebar.classList.remove("s-active")
+                    sidebar.classList.add("s-inactive")
+                } else {
+                    sidebar.classList.remove("s-inactive")
+                    sidebar.classList.add("s-active")
+                }
+            }
+        </script>
+    </body>
+</html>
