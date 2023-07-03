@@ -1,6 +1,6 @@
 from . import app
 from app.filesystem_accounter import dirtree_accounter
-from app.render_markdown import render_page
+from app.render_markdown import md_render
 
 from flask import render_template, redirect, url_for, send_file, abort
 from os.path import abspath, exists, sep
@@ -25,7 +25,7 @@ def serve_url_for_md_static(url="index.md"):
         return send_file(ABSPATH)
 
     # get markdown file and render it
-    html = render_page(PATH)
+    html = md_render.render_page(ABSPATH)
 
     # get vault_tree
     vault_tree = dirtree_accounter.get_file_tree()

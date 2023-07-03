@@ -1,1 +1,4 @@
-from .render_markdown import render_page
+from .render_markdown import MarkdownRenderer
+from config import Config
+
+md_render = MarkdownRenderer(Config())
