@@ -14,15 +14,15 @@ def index():
 @app.route('/md_static/<path:url>')
 def serve_url_for_md_static(url="index.md"):
     # get abs path
-    PATH = abspath(app.config["PATH_TO_VAULT"] + sep + url)
+    ABSPATH = abspath(app.config["PATH_TO_VAULT"] + sep + url)
 
     # check for existing
-    if not exists(PATH):
+    if not exists(ABSPATH):
         return abort(404)
 
     # if it's not markdown file return as file
     if url[-3:] != ".md":
-        return send_file(PATH)
+        return send_file(ABSPATH)
 
     # get markdown file and render it
     html = render_page(PATH)
