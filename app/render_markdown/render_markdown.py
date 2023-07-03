@@ -26,7 +26,7 @@ class MarkdownRenderer:
         extensions = [*of_extensions, *unof_extensions]
 
         # Init markdown
-        self.md = Markdown(extensions=extensions)
+        self.md = Markdown(extensions=extensions, extension_configs=config.OFFICIAL_EXTENSIONS_CONFIG)
 
     def render_page(self, ABSPATH: str):
         # get markdown file
