@@ -12,7 +12,7 @@ def index():
 
 @app.route('/md_static/')
 @app.route('/md_static/<path:url>')
-def serve_url_for_md_static(url="index.md"):
+def serve_url_for_md_static(url=""):
     # get abs path
     ABSPATH = abspath(app.config["PATH_TO_VAULT"] + sep + url)
 
