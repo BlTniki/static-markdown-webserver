@@ -3,7 +3,7 @@ from app.filesystem_accounter import dirtree_accounter
 from app.render_markdown import md_render
 
 from flask import render_template, redirect, url_for, send_file, abort
-from os.path import abspath, exists, sep
+from os.path import abspath, exists, sep, isdir
 
 
 @app.route('/')
@@ -19,6 +19,15 @@ def serve_url_for_md_static(url="index.md"):
     # check for existing
     if not exists(ABSPATH):
         return abort(404)
+
+    # get vault_tree
+    vault_tree = dirtree_accounter.get_file_tree()
+
+    # check for dir
+    if isdir(ABSPATH):
+        dir_tree = dirtree_accounter.get_file_tree_for_dir(url)
+        dir_name = "/" + url
+        return render_template("dir_page.html", dir_name=dir_name, vault_tree=vault_tree, dir_tree=dir_tree)
 
     # if it's not markdown file return as file
     if url[-3:] != ".md":
