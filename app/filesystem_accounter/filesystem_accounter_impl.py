@@ -32,6 +32,19 @@ def build_directory_dict(rootdir, pwd="/md_static"):
 
     return dirs
 
+def filter_directory_tree(tree: list[dict], url_iter: iter):
+
+    cur_dir = next(url_iter, None)
+    if not cur_dir:
+        return tree
+
+    for node in tree:
+        if node["text"] == cur_dir:
+            return filter_directory_tree(node["children"], url_iter)
+
+    # if we got here --> throw error
+    raise ValueError("Given dir non exist!")
+
 
 class FilesystemAccounterImpl(FilesystemAccounter):
 
@@ -47,6 +60,11 @@ class FilesystemAccounterImpl(FilesystemAccounter):
 
     def get_file_tree(self):
         return self._file_tree
+
+    def get_file_tree_for_dir(self, dir_url: str):
+        # without filter split will output like "/some/url/" -> ["", "some", "url", ""]
+        url_iter = iter(filter(lambda s: len(s) > 0, dir_url.split("/")))
+        return filter_directory_tree(self._file_tree, url_iter)
 
     def update(self, event: FileSystemEvent):
         # filter non important events
