@@ -27,7 +27,4 @@ def serve_url_for_md_static(url="index.md"):
     # get markdown file and render it
     html = md_render.render_page(ABSPATH)
 
-    # get vault_tree
-    vault_tree = dirtree_accounter.get_file_tree()
-
-    return render_template("base.html", vault_tree=vault_tree, content=html)
+    return render_template("markdown_page.html", vault_tree=vault_tree, payload=html)

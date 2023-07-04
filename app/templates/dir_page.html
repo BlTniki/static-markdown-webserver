@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ dir_name }}</h1>
+{% if dir_tree %}
+<style>
+    .jstree-icon, .jstree-ocl {
+        display: none !important;
+    }
+</style>
+<div id="dir-tree"></div>
+<script>
+    $(function () {
+        $('#dir-tree').jstree({
+            'core': {
+            'data': {{ dir_tree | safe }}
+            },
+            'plugins': ['state', 'types'],
+            'types': {
+            'default': {
+                'icon': false
+            }
+            }
+        });
+        $('#dir-tree').on('click.jstree', '.jstree-anchor', function (e) {
+            var node = $(e.target).closest('.jstree-node');
+            $('#dir-tree').jstree('toggle_node', node);
+        });
+        $('#dir-tree').on("activate_node.jstree", function (e, data) {
+            var href = data.node.a_attr.href;
+            if (href) {
+            window.location.href = href;
+            }
+        });
+    });
+</script>
+{% else %}
+<h1>Error. No directory is provided :(</h1>
+{% endif %}
+{% endblock %}

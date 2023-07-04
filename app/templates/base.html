@@ -67,24 +67,25 @@
 
         <div id="mySidenav" class="sidenav s-active">
             {% if vault_tree %}
-            <div id="tree"></div>
+            <div id="side-tree"></div>
             {% endif %}
         </div>
 
 
         <div id="main">
             <span style="font-size:30px;cursor:pointer" onclick="toggleNav()">&#9776;</span>
-            {% if content %}
-            {{ content | safe }}
-            {% else %}
-            <h1>Error. No content is provided :(</h1>
-            {% endif %}
+            {% block content %}{% endblock %}
+<!--            {% if content %}-->
+<!--            {{ content | safe }}-->
+<!--            {% else %}-->
+<!--            <h1>Error. No content is provided :(</h1>-->
+<!--            {% endif %}-->
 
         </div>
         <script>
             {% if vault_tree %}
             $(function () {
-                $('#tree').jstree({
+                $('#side-tree').jstree({
                     'core': {
                     'data': {{ vault_tree | safe }}
                     },
@@ -95,11 +96,11 @@
                     }
                     }
                 });
-                $('#tree').on('click.jstree', '.jstree-anchor', function (e) {
+                $('#side-tree').on('click.jstree', '.jstree-anchor', function (e) {
                     var node = $(e.target).closest('.jstree-node');
-                    $('#tree').jstree('toggle_node', node);
+                    $('#side-tree').jstree('toggle_node', node);
                 });
-                $('#tree').on("activate_node.jstree", function (e, data) {
+                $('#side-tree').on("activate_node.jstree", function (e, data) {
                     var href = data.node.a_attr.href;
                     if (href) {
                     window.location.href = href;

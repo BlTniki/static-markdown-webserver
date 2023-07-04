@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if payload %}
+{{ payload | safe }}
+{% else %}
+<h1>Error. No content is provided :(</h1>
+{% endif %}
+{% endblock %}
