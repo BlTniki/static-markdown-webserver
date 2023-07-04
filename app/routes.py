@@ -18,7 +18,7 @@ def serve_url_for_md_static(url=""):
 
     # check for existing
     if not exists(ABSPATH):
-        return abort(404)
+        abort(404)
 
     # get vault_tree
     vault_tree = dirtree_accounter.get_file_tree()
