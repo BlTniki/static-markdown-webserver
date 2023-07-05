@@ -1,6 +1,6 @@
-from . import app
-from app.filesystem_accounter import dirtree_accounter
+from app.main import app
 from app.render_markdown import md_render
+from app.filesystem_accounter import dirtree_accounter
 
 from flask import render_template, redirect, url_for, send_file, abort
 from os.path import abspath, exists, sep, isdir

@@ -1,4 +1,4 @@
 from .render_markdown import MarkdownRenderer
-from config import Config
+from configs import ConfigHandler
 
-md_render = MarkdownRenderer(Config())
+md_render = MarkdownRenderer(ConfigHandler.get_config())

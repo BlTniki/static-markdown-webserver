@@ -1,4 +1,3 @@
-# Идеи
 [foobar](foo/bar.md) ✅
 
 Реализовать веб приложение, которое отдаёт `.md` файлы как статические `html` файлы перед этим компилируя их в `html`. Давай напишем на [python](https://www.digitalocean.com/community/tutorials/how-to-use-python-markdown-to-convert-markdown-text-to-html)
@@ -14,17 +13,11 @@
 Оказывается, Обсидиановский формат достаточно специфичен, поэтому придётся либо модифицировать, либо писать с нуля конвертер.
 
 ![](attach/test.png)
-
-
-This math is inline $`a^2+b^2=c^2`$.
-
-This is on a separate line
-```math
-f(x) = \int_{-\infty}^\infty
-\hat f(\xi)\,e^{2 \pi i \xi x}
-\,d\xi
-```
-
+$$
+M(X) = \sum_{i}^{n->\infty} x_{i}p_{i}
+$$
+Valid: $\frac{1}{0}$, `lol` $\frac{1}{0}$, $`\frac{1}{0}`$
+Unvalid: `$\frac{1}{0}$`, `awdwa $\frac{1}{0}$`
 $$
 E\left(\sum_{j=i}^{n}c_{kj}^{*}w_{j}-f_{k}^{-}\right)-\varphi^{-1}(\alpha_{k})\sqrt{Var}\left(\sum_{j=i}^{n}c_{kj}^{*}w_{j}-f_{k}^{-}\right) \geq 0, k=1,...,K,
 $$

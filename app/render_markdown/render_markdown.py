@@ -1,5 +1,5 @@
 from external.markdown_extensions import unof_extensions
-from config import Config
+from configs import Config
 
 from markdown import Markdown
 import os

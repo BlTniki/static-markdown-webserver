@@ -1,6 +1,6 @@
-from .filesystem_accounter_abs import FilesystemAccounter
+from .filesystem_accounter_abs import FilesystemAccounterABS
 from .md_static_watchdog import MdStaticWatchdog
-from config import Config
+from configs import Config
 
 from watchdog.events import FileSystemEvent
 from watchdog.events import FileCreatedEvent, FileMovedEvent, FileDeletedEvent
@@ -46,7 +46,7 @@ def filter_directory_tree(tree: list[dict], url_iter: iter):
     raise ValueError("Given dir non exist!")
 
 
-class FilesystemAccounterImpl(FilesystemAccounter):
+class FilesystemAccounterImpl(FilesystemAccounterABS):
 
     def __init__(self, config: Config):
         self.PATH_TO_VAULT = config.PATH_TO_VAULT

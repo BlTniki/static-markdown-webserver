@@ -5,7 +5,7 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler, FileSystemEvent
 
 
-class MyEventHandlerPublisher(FileSystemEventHandler, FilesystemEventsPublisher):
+class WatchdogEventHandlerPublisher(FileSystemEventHandler, FilesystemEventsPublisher):
 
     def subscribe(self, subscriber: FilesystemEventsSubscriber):
         self.subscribers.append(subscriber)
@@ -23,7 +23,7 @@ class MdStaticWatchdog:
 
     def __init__(self, directory_to_watch):
         # Create an observer and event handler
-        self.publisher = MyEventHandlerPublisher()
+        self.publisher = WatchdogEventHandlerPublisher()
         self.observer = Observer()
 
         # Set up the observer to watch the directory

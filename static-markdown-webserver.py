@@ -1,6 +1,8 @@
-from app import app
-from config import Config
-
+from configs import DevConfig, ConfigHandler
 
 if __name__ == "__main__":
-    app.run(debug=Config.DEBUG)
+    ConfigHandler.set_config(DevConfig())
+
+    from app.main import app
+
+    app.run(debug=ConfigHandler.get_config().DEBUG, use_reloader=False)
