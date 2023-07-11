@@ -1,5 +1,5 @@
-from app import FilesystemAccounter
-from configs import Config
+from app.filesystem_accounter import FilesystemAccounter
+from configs import ConfigHandler, TestConfig
 
 import unittest
 
@@ -7,10 +7,12 @@ import unittest
 class TestFilesystemAccounterImpl(unittest.TestCase):
 
     def setUp(self) -> None:
-        print("setting up TestFilesystemAccounterImpl")
-        config = Config()
-        config.PATH_TO_VAULT = ""
-        self.accounter = FilesystemAccounter(config)
+        print("setting up TestFilesystemAccounter")
+
+        # Setting specific test config
+        ConfigHandler.set_config(TestConfig())
+
+        self.accounter = FilesystemAccounter(ConfigHandler.get_config())
         self.accounter._wd.observer.stop()
 
         self.accounter._file_tree = [
@@ -61,3 +63,15 @@ class TestFilesystemAccounterImpl(unittest.TestCase):
 
         for url in urls:
             self.assertEqual(self.accounter.get_file_tree_for_dir(url), model_result, f"for {url}")
+
+    def test_get_file_tree_for_dir_non_exist(self):
+        urls = ["/foo/kek", "/foo/test.png", "/foo/attach/testbar.png"]
+
+        for url in urls:
+            self.assertRaises(ValueError, self.accounter.get_file_tree_for_dir, url)
+
+    def test_get_file_tree_for_dir_non_dir(self):
+        urls = ["/test.png", "/foo/bar/testbar.png"]
+
+        for url in urls:
+            self.assertRaises(ValueError, self.accounter.get_file_tree_for_dir, url)

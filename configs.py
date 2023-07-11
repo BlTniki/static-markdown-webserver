@@ -27,6 +27,15 @@ class ProdConfig(Config):
     OFFICIAL_EXTENSIONS_CONFIG = os.environ.get("OFFICIAL_EXTENSIONS_TO_USE") or {}
     CONFIG_MSG = "PROD!!"
 
+
+class TestConfig(Config):
+    DEBUG = True
+    SECRET_KEY = "you-will-never-guess"
+    PATH_TO_VAULT = os.path.abspath(r"")
+    OFFICIAL_EXTENSIONS_TO_USE = ['fenced_code', 'tables', 'nl2br']
+    OFFICIAL_EXTENSIONS_CONFIG = {}
+    CONFIG_MSG = "TEST!!"
+
 class ConfigHandler:
     _config = Config()  # Default config
 

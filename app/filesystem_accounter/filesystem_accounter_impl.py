@@ -39,7 +39,8 @@ def filter_directory_tree(tree: list[dict], url_iter: iter):
         return tree
 
     for node in tree:
-        if node["text"] == cur_dir:
+        # So basically if node not contain the "a_attr" key -- it's a dir
+        if node["text"] == cur_dir and "a_attr" not in node.keys():
             return filter_directory_tree(node["children"], url_iter)
 
     # if we got here --> throw error

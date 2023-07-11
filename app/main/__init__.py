@@ -1,4 +1,5 @@
 from configs import ConfigHandler
+from app.filesystem_accounter import FilesystemAccounter
 
 from flask import Flask
 from flask_debugtoolbar import DebugToolbarExtension
@@ -38,5 +39,8 @@ file_handler.setLevel(logging.ERROR)
 app.logger.addHandler(file_handler)
 
 app.logger.setLevel(logging.ERROR)
+
+# Setup filetree accounter
+dirtree_accounter = FilesystemAccounter(ConfigHandler.get_config())
 
 from app.main import error_handler, routes
