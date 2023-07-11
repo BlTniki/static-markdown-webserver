@@ -9,13 +9,3 @@ class FilesystemEventsSubscriber(ABC):
         pass
 
 
-# class fafa(FilesystemEventsSubscriber):
-#     def update(self, event: FileSystemEvent):
-#         pass
-#
-#
-# if __name__ == "__main__":
-#     fi = FilesystemEventsSubscriber
-#     fa = fafa()
-#     print(isinstance(fa, FilesystemEventsSubscriber))
-#     print(isinstance(fa, fafa))

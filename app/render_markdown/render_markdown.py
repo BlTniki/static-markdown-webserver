@@ -38,8 +38,5 @@ class MarkdownRenderer:
 
 
 if __name__ == "__main__":
-    # p = "D:\\!Important\\Progrog\\Python\\static-markdown-webserver\\app\\render_markdown\\render_markdown.py"
-    # p1 = "/lol/kek.md"
-    # print(get_filename(p))
     md = Markdown(extensions=unof_extensions)
     print(md.convert(r"$P(H_{1,2}) = \frac 12$"))
